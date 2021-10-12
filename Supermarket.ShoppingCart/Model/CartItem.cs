@@ -29,27 +29,28 @@ namespace Supermarket.ShoppingCart.Model
         } 
         public Product Product { get; set; }
 
-        public double ApplyDiscount()
-        {
-            double discountedQuantity = 0;
-           
-            double initalQuantity = Quantity;
-             double totalQuantity = 0;
-            foreach (QuantityDiscount discount in Product.Discounts.Where(d => d is QuantityDiscount))
-            {
+        public double TotalPrice => _Quantity * Product.ProductPrice;
+        //public double ApplyDiscount()
+        //{
+        //    double discountedQuantity = 0;
 
-                discountedQuantity =+ discount.ApplyDiscount(initalQuantity);
+        //    double initalQuantity = Quantity;
+        //     double totalQuantity = 0;
+        //    foreach (QuantityDiscount discount in Product.Discounts.Where(d => d is QuantityDiscount))
+        //    {
 
-                initalQuantity = discount.GetUndiscountedQuantity(initalQuantity);
-            }
-            totalQuantity = discountedQuantity + initalQuantity;
-            foreach (PercentageDiscount discount in Product.Discounts.Where(d => d is PercentageDiscount))
-            {
-                totalQuantity = discount.ApplyDiscount(totalQuantity);
-            }
-            double totalDiscounted = Product.ProductPrice * totalQuantity; 
-            return totalDiscounted;
-        }
+        //        discountedQuantity =+ discount.ApplyDiscount(initalQuantity);
+
+        //        initalQuantity = discount.GetUndiscountedQuantity(initalQuantity);
+        //    }
+        //    totalQuantity = discountedQuantity + initalQuantity;
+        //    foreach (PercentageDiscount discount in Product.Discounts.Where(d => d is PercentageDiscount))
+        //    {
+        //        totalQuantity = discount.ApplyDiscount(totalQuantity);
+        //    }
+        //    double totalDiscounted = Product.ProductPrice * totalQuantity; 
+        //    return totalDiscounted;
+        //}
 
     }
 }

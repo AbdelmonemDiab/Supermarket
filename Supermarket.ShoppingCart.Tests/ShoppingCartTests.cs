@@ -1,4 +1,5 @@
-﻿using Supermarket.ShoppingCart.Model;
+﻿using Supermarket.ShoppingCart.Engine;
+using Supermarket.ShoppingCart.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Supermarket.ShoppingCart.Tests
 {
     public class ShoppingCartTests
     {
-        private readonly Model.ShoppingCart shoppingCart = new Model.ShoppingCart();
+        private readonly Model.ShoppingCart shoppingCart = new Model.ShoppingCart( new ReceiptEngine( new DiscountEngine()));
         private  List<CartItem> cartItems = new List<CartItem>();
         private readonly Product riceProduct = new Product
         {
