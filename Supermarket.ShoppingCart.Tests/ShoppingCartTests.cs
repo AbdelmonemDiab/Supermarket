@@ -1,4 +1,5 @@
 ﻿using Supermarket.ShoppingCart.Engine;
+using Supermarket.ShoppingCart.Interfaces;
 using Supermarket.ShoppingCart.Model;
 using System;
 using System.Collections.Generic;
@@ -13,61 +14,10 @@ namespace Supermarket.ShoppingCart.Tests
     {
         private readonly Model.ShoppingCart shoppingCart = new Model.ShoppingCart( new ReceiptEngine( new DiscountEngine()));
         private  List<CartItem> cartItems = new List<CartItem>();
-        private readonly Product riceProduct = new Product
-        {
-            Discounts = new List<Interfaces.IDiscount>(),
-            ProductUnit = "Bag",
-            ProductId = 1,
-            ProductName = "Rice",
-            ProductPrice = 2.49,
-            ProductType = ProductType.Quantity
-        };
-        private readonly Product applesProduct = new Product
-        {
-            Discounts = new List<Interfaces.IDiscount>(),
-            ProductUnit = "Kilo",
-            ProductId = 1,
-            ProductName = "Apples",
-            ProductPrice = 1.99,
-            ProductType = ProductType.Weight
-        };
-
-
-        private readonly Product discountedRiceProduct = new Product
-        {
-            Discounts = new List<Interfaces.IDiscount>()
-            {
-                new QuantityDiscount
-                {
-                    StartDate = DateTime.Now.AddDays(-10), 
-                    EndDate = DateTime.Now.AddDays(10), 
-                    BuyQuantity =2, 
-                    GetQuantity= 2
-                }
-            },
-            ProductUnit = "Bag",
-            ProductId = 1,
-            ProductName = "Rice",
-            ProductPrice = 2.49,
-            ProductType = ProductType.Quantity
-        };
-        private readonly Product discountedApplesProduct = new Product
-        {
-            Discounts = new List<Interfaces.IDiscount>()
-            { 
-                new PercentageDiscount {
-                        StartDate = DateTime.Now.AddDays(-10),
-                       EndDate = DateTime.Now.AddDays(10)
-                    ,
-                    Percentage = 0.2
-                }
-            },
-            ProductUnit = "Kilo",
-            ProductId = 1,
-            ProductName = "Apples",
-            ProductPrice = 1.99,
-            ProductType = ProductType.Weight
-        };
+        private Product riceProduct = Helper.GetSampleProducts()
+                                            .First(c => c.ProductName.ToLower() == "rice");
+        private Product applesProduct = Helper.GetSampleProducts()
+                                            .First(c => c.ProductName.ToLower() == "apples");
 
         public ShoppingCartTests()
         {
@@ -96,16 +46,25 @@ namespace Supermarket.ShoppingCart.Tests
         [Fact]
         public void ShoppingCartDiscounts()
         {
+            riceProduct.Discounts = Helper.GetQuantityDiscounts()
+                                          .Where(c => c.BuyQuantity == 2 && c.GetQuantity == 2)
+                                          .Select(c=>(IDiscount) c)
+                                          .ToList();
+            applesProduct.Discounts = Helper.GetPercentageDiscounts()
+                                          .Where(c => c.MinmumQuantity == 0 && c.Percentage ==0.2)
+                                          .Select(c => (IDiscount)c)
+                                          .ToList();
+
             cartItems = new List<CartItem>
             {
                 new CartItem
                 {
-                    Product = discountedRiceProduct,
+                    Product = riceProduct,
                     Quantity = 4
                 },
                 new CartItem
                 {
-                    Product = discountedApplesProduct,
+                    Product = applesProduct,
                     Quantity = 2.5
                 }
             }; 
@@ -117,16 +76,24 @@ namespace Supermarket.ShoppingCart.Tests
         [Fact]
         public void ShoppingCart2Discounts()
         {
+            riceProduct.Discounts = Helper.GetQuantityDiscounts()
+                              .Where(c => c.BuyQuantity == 2 && c.GetQuantity == 2)
+                              .Select(c => (IDiscount)c)
+                              .ToList();
+            applesProduct.Discounts = Helper.GetPercentageDiscounts()
+                                          .Where(c => c.MinmumQuantity == 0 && c.Percentage == 0.2)
+                                          .Select(c => (IDiscount)c)
+                                          .ToList();
             cartItems = new List<CartItem>
             {
                 new CartItem
                 {
-                    Product = discountedRiceProduct,
+                    Product = riceProduct,
                     Quantity = 2
                 },
                 new CartItem
                 {
-                    Product = discountedApplesProduct,
+                    Product = applesProduct,
                     Quantity = 2.5
                 }
             };
