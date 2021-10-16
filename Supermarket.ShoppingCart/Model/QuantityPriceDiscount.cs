@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Supermarket.ShoppingCart.Model
 {
-    public class QuantityPriceDiscount : IQuantityDiscount
+    public class QuantityPriceDiscount : IQuantityPriceDiscount
     {
 
         public int DiscountedQuantity { get; set; }
@@ -18,16 +18,12 @@ namespace Supermarket.ShoppingCart.Model
 
         public double CalculateDiscount(double quantity, Product product)
         {
-            int q = ((int)quantity / DiscountedQuantity); //* DiscountedQuantity;
+            int q = ((int)quantity / DiscountedQuantity); 
             var totalPricePerQuantity = quantity * product.ProductPrice;
             var discount = totalPricePerQuantity - (q * PricePerDiscountedQuantity);
             return discount;
         }
 
-        public int GetAddedQuantity(int quanitty)
-        {
-            return 0;
-        }
 
         public double GetUndiscountedQuantity(double quanitty)
         {

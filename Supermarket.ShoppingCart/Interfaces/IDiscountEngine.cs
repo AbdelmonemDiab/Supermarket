@@ -9,6 +9,11 @@ namespace Supermarket.ShoppingCart.Interfaces
 {
     public interface IDiscountEngine 
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cartItem"></param>
+        /// <returns></returns>
         double CalculateDiscount(CartItem cartItem);
     }
 }

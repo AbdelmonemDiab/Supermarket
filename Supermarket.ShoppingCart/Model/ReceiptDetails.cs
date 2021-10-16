@@ -16,8 +16,5 @@ namespace Supermarket.ShoppingCart.Model
         public double DiscountedPrice { get; set; }
         public double DiscountPercentage { get; set; }
        
-        //public double N { get; set; }
-       // public CartItem CartItem { get; set; }
-
     }
 }

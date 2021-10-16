@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Supermarket.ShoppingCart.Interfaces
 {
-    interface IQuantityPriceDiscount
+    interface IQuantityPriceDiscount : IDiscount
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="quanitty"></param>
+        /// <returns></returns>
+        int GetUndiscountedQuantity(int quanitty);
     }
 }
