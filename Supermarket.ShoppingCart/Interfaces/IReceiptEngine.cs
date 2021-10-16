@@ -9,6 +9,7 @@ namespace Supermarket.ShoppingCart.Interfaces
 {
     public interface IReceiptEngine
     {
-        ReceiptDetails GenerateReceiptDetails(CartItem cartItem);
+        ReceiptItem GenerateReceiptDetails(CartItem cartItem);
+        Receipt GenerateReceipt(Model.ShoppingCart shoppingCart);
     }
 }

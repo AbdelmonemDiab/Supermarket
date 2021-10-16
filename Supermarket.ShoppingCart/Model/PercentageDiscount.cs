@@ -9,10 +9,24 @@ namespace Supermarket.ShoppingCart.Model
 {
     public class PercentageDiscount : IDiscount
     {
+        public double MinmumQuantity { get; set; }
         public double Percentage { get; set; }
-        public double ApplyDiscount(double quanitty)
+        public DateTime StartDate { get; set ; }
+        public DateTime? EndDate { get ; set ; }
+
+        //public double ApplyDiscount(double quanitty)
+        //{
+        //    return quanitty*(1-Percentage);
+        //}
+
+        public double CalculateDiscount(double quantity, Product product)
         {
-            return quanitty*(1-Percentage);
+            return Percentage * quantity*product.ProductPrice;
+        }
+
+        public bool IsEligibleForDiscount(double quantity)
+        {
+            return MinmumQuantity <= quantity;
         }
     }
 }

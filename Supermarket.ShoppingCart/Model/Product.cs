@@ -26,8 +26,12 @@ namespace Supermarket.ShoppingCart.Model
             }
         }
 
-        public string ProductCategory { get; set; }
+        public string ProductUnit { get; set; }
         public List<IDiscount> Discounts { get; set; }
         public ProductType ProductType { get; set; }
+        public Product()
+        {
+            Discounts = new List<IDiscount>();
+        }
     }
 }

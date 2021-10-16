@@ -14,17 +14,26 @@ namespace Supermarket.ShoppingCart.Model
         {
             _DiscountEngine = discountEngine;
         }
-        public ReceiptDetails GenerateReceiptDetails(CartItem cartItem)
+        public ReceiptItem GenerateReceiptDetails(CartItem cartItem)
         {
      
-            var TotalAfterDiscount=  _DiscountEngine.CalculateDiscount(cartItem);
-            var receiptDetails = new ReceiptDetails
+            var discount=  _DiscountEngine.CalculateDiscount(cartItem);
+            var receiptDetails = new ReceiptItem
             {
-                CartItem = cartItem,
-                DiscountedPrice = TotalAfterDiscount,
-                DiscountPercentage = TotalAfterDiscount * 100 / (cartItem.TotalPrice)
+               Product = cartItem.Product, 
+               Quantity = cartItem.Quantity, 
+               DiscountedPrice = (cartItem.Quantity * cartItem.Product.ProductPrice) - discount,
+               DiscountPercentage = (discount * 100) / (cartItem.Quantity *cartItem.Product.ProductPrice)
             };
             return receiptDetails;
+        }
+
+        public Receipt GenerateReceipt(ShoppingCart shoppingCart)
+        {
+            var receipt = new Receipt();
+            receipt.ReceiptItems = shoppingCart.CartItems.Select(c => GenerateReceiptDetails(c)).ToList(); 
+            return receipt;
+
         }
     }
 }

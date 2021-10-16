@@ -16,7 +16,7 @@ namespace Supermarket.ShoppingCart.Tests
         private readonly Product riceProduct = new Product
         {
             Discounts = new List<Interfaces.IDiscount>(),
-            ProductCategory = "Bag",
+            ProductUnit = "Bag",
             ProductId = 1,
             ProductName = "Rice",
             ProductPrice = 2.49,
@@ -25,7 +25,7 @@ namespace Supermarket.ShoppingCart.Tests
         private readonly Product applesProduct = new Product
         {
             Discounts = new List<Interfaces.IDiscount>(),
-            ProductCategory = "Kilo",
+            ProductUnit = "Kilo",
             ProductId = 1,
             ProductName = "Apples",
             ProductPrice = 1.99,
@@ -39,12 +39,13 @@ namespace Supermarket.ShoppingCart.Tests
             {
                 new QuantityDiscount
                 {
-                    Priority =1,
-                    TotalProductCount = 4, // Buy 2 Get 2
-                    DiscountedProductCount = 2
+                    StartDate = DateTime.Now.AddDays(-10), 
+                    EndDate = DateTime.Now.AddDays(10), 
+                    BuyQuantity =2, 
+                    GetQuantity= 2
                 }
             },
-            ProductCategory = "Bag",
+            ProductUnit = "Bag",
             ProductId = 1,
             ProductName = "Rice",
             ProductPrice = 2.49,
@@ -54,9 +55,14 @@ namespace Supermarket.ShoppingCart.Tests
         {
             Discounts = new List<Interfaces.IDiscount>()
             { 
-                new PercentageDiscount { Percentage = 0.2}
+                new PercentageDiscount {
+                        StartDate = DateTime.Now.AddDays(-10),
+                       EndDate = DateTime.Now.AddDays(10)
+                    ,
+                    Percentage = 0.2
+                }
             },
-            ProductCategory = "Kilo",
+            ProductUnit = "Kilo",
             ProductId = 1,
             ProductName = "Apples",
             ProductPrice = 1.99,

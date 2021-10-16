@@ -18,7 +18,8 @@ namespace Supermarket.ShoppingCart.Model
 
         public double CalculateShoppingCart()
         {
-           return CartItems.Select(c=> receiptEngine.GenerateReceiptDetails(c)).Sum(c => c.DiscountedPrice);
+           return CartItems.Select(c=> receiptEngine.GenerateReceiptDetails(c))
+                .Sum(c => c.DiscountedPrice);
         }
     } 
 }

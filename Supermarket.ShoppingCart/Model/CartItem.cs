@@ -29,7 +29,8 @@ namespace Supermarket.ShoppingCart.Model
         } 
         public Product Product { get; set; }
 
-        public double TotalPrice => _Quantity * Product.ProductPrice;
+        public int AddedQuantity { get; set; }
+        //  public double TotalPrice => _Quantity * Product.ProductPrice;
         //public double ApplyDiscount()
         //{
         //    double discountedQuantity = 0;

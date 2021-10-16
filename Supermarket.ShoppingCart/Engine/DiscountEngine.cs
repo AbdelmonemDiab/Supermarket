@@ -12,24 +12,37 @@ namespace Supermarket.ShoppingCart.Engine
     {
         public double CalculateDiscount(CartItem cartItem)
         {
-            double discountedQuantity = 0;
+            double discount = 0;
 
             double initalQuantity = cartItem.Quantity;
-            double totalQuantity = 0;
-            foreach (QuantityDiscount discount in cartItem.Product.Discounts.Where(d => d is QuantityDiscount))
-            {
+            double totalQuantity = cartItem.Quantity;
+            var activeDiscounts = cartItem.Product.Discounts
+                                    .Where(c => c.IsActiveDiscount())
+                                    .Where(c => c.IsEligibleForDiscount(cartItem.Quantity))
+                                    .ToList();
 
-                discountedQuantity = +discount.ApplyDiscount(initalQuantity);
-
-                initalQuantity = discount.GetUndiscountedQuantity(initalQuantity);
-            }
-            totalQuantity = discountedQuantity + initalQuantity;
-            foreach (PercentageDiscount discount in cartItem.Product.Discounts.Where(d => d is PercentageDiscount))
+            foreach (var d in activeDiscounts.Where(d => d is QuantityDiscount).Select(c => (QuantityDiscount)c).OrderByDescending(c=>c.BuyQuantity))
             {
-                totalQuantity = discount.ApplyDiscount(totalQuantity);
+                discount += d.CalculateDiscount(initalQuantity, cartItem.Product);
+                cartItem.AddedQuantity += d.GetNewQuantity((int)initalQuantity);
+                initalQuantity = d.GetUndiscountedQuantity((int)initalQuantity);
+                
             }
-            double totalDiscounted = cartItem.Product.ProductPrice * totalQuantity;
-            return totalDiscounted;
+
+            initalQuantity = cartItem.Quantity + cartItem.AddedQuantity;
+            foreach (var d in activeDiscounts.Where(d => d is QuantityPriceDiscount)
+                                              .Select(c => (QuantityPriceDiscount)c)
+                                              .OrderByDescending(c => c.DiscountedQuantity))
+            {
+                discount += d.CalculateDiscount(initalQuantity, cartItem.Product);
+                initalQuantity = d.GetUndiscountedQuantity((int)initalQuantity);
+            }
+            totalQuantity += cartItem.AddedQuantity;
+            foreach (var d in activeDiscounts.Where(d => d is PercentageDiscount))
+            {
+                discount += d.CalculateDiscount(totalQuantity, cartItem.Product);
+            }
+            return discount;
         }
     }
 }
