@@ -24,9 +24,9 @@ namespace Supermarket.ShoppingCart.Model
             return discount;
         }
 
-        public int GetNewQuantity(int quanitty)
+        public int GetAddedQuantity(int quanitty)
         {
-            return quanitty;
+            return 0;
         }
 
         public double GetUndiscountedQuantity(double quanitty)

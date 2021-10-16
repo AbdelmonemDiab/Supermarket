@@ -24,7 +24,7 @@ namespace Supermarket.ShoppingCart.Engine
             foreach (var d in activeDiscounts.Where(d => d is QuantityDiscount).Select(c => (QuantityDiscount)c).OrderByDescending(c=>c.BuyQuantity))
             {
                 discount += d.CalculateDiscount(initalQuantity, cartItem.Product);
-                cartItem.AddedQuantity += d.GetNewQuantity((int)initalQuantity);
+                cartItem.AddedQuantity += d.GetAddedQuantity((int)initalQuantity);
                 initalQuantity = d.GetUndiscountedQuantity((int)initalQuantity);
                 
             }

@@ -34,12 +34,14 @@ namespace Supermarket.ShoppingCart.Model
             return ((int)quantity / TotalQuantity) * BuyQuantity * product.ProductPrice;
         }
 
-        public int GetNewQuantity(int quantity)
+        public int GetAddedQuantity(int quantity)
         {
-            if (quantity % (BuyQuantity + GetQuantity) == 0)
-                return 0;
-            int discountedCount = quantity / BuyQuantity;
-            return discountedCount * (TotalQuantity) + quantity % BuyQuantity;
+
+            int discountCount = quantity / TotalQuantity;
+            var remainingQuantity = quantity - (discountCount * TotalQuantity);
+            if (remainingQuantity >= BuyQuantity)
+                return  GetQuantity - (remainingQuantity-BuyQuantity);
+            return 0; 
         }
 
         public int GetUndiscountedQuantity(int quantity)

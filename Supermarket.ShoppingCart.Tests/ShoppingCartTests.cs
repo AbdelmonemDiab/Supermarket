@@ -114,5 +114,26 @@ namespace Supermarket.ShoppingCart.Tests
 
             Assert.Equal(8.96, totalPrice);
         }
+        [Fact]
+        public void ShoppingCart2Discounts()
+        {
+            cartItems = new List<CartItem>
+            {
+                new CartItem
+                {
+                    Product = discountedRiceProduct,
+                    Quantity = 2
+                },
+                new CartItem
+                {
+                    Product = discountedApplesProduct,
+                    Quantity = 2.5
+                }
+            };
+            shoppingCart.CartItems = cartItems;
+            var totalPrice = shoppingCart.CalculateShoppingCart();
+
+            Assert.Equal(8.96, totalPrice);
+        }
     }
 }
