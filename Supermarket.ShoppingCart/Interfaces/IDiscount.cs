@@ -40,7 +40,7 @@ namespace Supermarket.ShoppingCart.Interfaces
         /// <param name="quantity"></param>
         /// <param name="product"></param>
         /// <returns></returns>
-        double CalculateDiscount(int quantity, Product product);
+        double CalculateDiscount(int quantity, double productPrice);
 
         
 

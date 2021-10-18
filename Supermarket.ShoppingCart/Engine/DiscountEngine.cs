@@ -25,42 +25,42 @@ namespace Supermarket.ShoppingCart.Engine
                 .Where(d => d is QuantityDiscount)
                 .Select(c => (QuantityDiscount)c)
                 .ToList(), 
-                cartItem.Product,
+                cartItem.Product.ProductPrice,
                 cartItem.Quantity);
 
             totalQuantity = cartItem.Quantity + cartItem.AddedQuantity;
 
             discount+= CalculateQuantityPriceDiscount(activeDiscounts.Where(d => d is QuantityPriceDiscount)
-                                              .Select(c => (QuantityPriceDiscount)c).ToList(), cartItem.Product,
+                                              .Select(c => (QuantityPriceDiscount)c).ToList(), cartItem.Product.ProductPrice,
                                               totalQuantity);
 
             foreach (var d in activeDiscounts.Where(d => d is PercentageDiscount))
             {
-                discount += d.CalculateDiscount(totalQuantity, cartItem.Product);
+                discount += d.CalculateDiscount(totalQuantity, cartItem.Product.ProductPrice);
             }
             return discount;
         }
 
-        public (double Discount, int AddedItems) CalculateQuantityDiscount(List<QuantityDiscount> quantityDiscounts, Product product, int quantity)
+        public (double Discount, int AddedItems) CalculateQuantityDiscount(List<QuantityDiscount> quantityDiscounts, double productPrice, int quantity)
         {
             double discount = 0;
             int addedItems = 0;
             foreach (var quantityDiscount in quantityDiscounts.OrderByDescending(c => c.BuyQuantity))
             {
-                discount += quantityDiscount.CalculateDiscount(quantity, product);
+                discount += quantityDiscount.CalculateDiscount(quantity, productPrice);
                 addedItems += quantityDiscount.GetAddedQuantity(quantity);
                 quantity = quantityDiscount.GetUndiscountedQuantity(quantity);
             }
             return (discount, addedItems);
         }
 
-        public double CalculateQuantityPriceDiscount(List<QuantityPriceDiscount> quantityPriceDiscounts, Product product, int quantity)
+        public double CalculateQuantityPriceDiscount(List<QuantityPriceDiscount> quantityPriceDiscounts, double productPrice, int quantity)
         {
             double discount = 0;
 
             foreach (var quantityDiscount in quantityPriceDiscounts.OrderByDescending(c => c.DiscountedQuantity))
             {
-                discount += quantityDiscount.CalculateDiscount(quantity, product);
+                discount += quantityDiscount.CalculateDiscount(quantity, productPrice);
             
                 quantity = quantityDiscount.GetUndiscountedQuantity(quantity);
             }

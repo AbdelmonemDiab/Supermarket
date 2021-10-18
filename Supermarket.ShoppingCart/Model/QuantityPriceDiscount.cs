@@ -16,10 +16,10 @@ namespace Supermarket.ShoppingCart.Model
         public DateTime? EndDate { get; set; }
 
 
-        public double CalculateDiscount(int quantity, Product product)
+        public double CalculateDiscount(int quantity, double productPrice)
         {
             int q = ((int)quantity / DiscountedQuantity); 
-            var totalPricePerQuantity = quantity * product.ProductPrice;
+            var totalPricePerQuantity = quantity * productPrice;
             var discount = totalPricePerQuantity - (q * PricePerDiscountedQuantity);
             return discount;
         }

@@ -14,9 +14,9 @@ namespace Supermarket.ShoppingCart.Model
         public DateTime StartDate { get; set ; }
         public DateTime? EndDate { get ; set ; }
 
-        public double CalculateDiscount(int quantity, Product product)
+        public double CalculateDiscount(int quantity, double productPrice)
         {
-            return Percentage * quantity*product.ProductPrice;
+            return Percentage * quantity* productPrice;
         }
 
         public bool IsEligibleForDiscount(int quantity)

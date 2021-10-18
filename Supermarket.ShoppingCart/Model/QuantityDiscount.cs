@@ -17,9 +17,9 @@ namespace Supermarket.ShoppingCart.Model
         public DateTime StartDate { get ; set; }
         public DateTime? EndDate { get; set; }
 
-        public double CalculateDiscount(int quantity, Product product)
+        public double CalculateDiscount(int quantity, double productPrice)
         {
-            return ((int)quantity / TotalQuantity) * BuyQuantity * product.ProductPrice;
+            return (quantity / TotalQuantity) * BuyQuantity * productPrice;
         }
 
         public int GetAddedQuantity(int quantity)
@@ -34,7 +34,7 @@ namespace Supermarket.ShoppingCart.Model
 
         public int GetUndiscountedQuantity(int quantity)
         {
-            return quantity % BuyQuantity;
+            return (GetAddedQuantity(quantity) + quantity) % BuyQuantity;
         }
 
         public bool IsEligibleForDiscount(int quantity)
