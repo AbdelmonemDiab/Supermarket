@@ -11,4 +11,13 @@ namespace Supermarket.ShoppingCart
         Weight,
         Quantity
     }
+    public enum PricePerUnit
+    {
+        One=1,
+        Ten =10,
+        Hundred = 100,
+        TwoHundred50 =250,
+        FiveHundred =500,
+        Thousand =1000
+    }
 }

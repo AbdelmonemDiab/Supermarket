@@ -34,7 +34,7 @@ namespace Supermarket.ShoppingCart.Tests
             cartItems.Add(new CartItem
             {
                 Product = applesProduct,
-                Quantity = 2.5
+                Quantity = 2500
             });
             shoppingCart.CartItems = cartItems;
             var totalPrice = shoppingCart.CalculateShoppingCart();
@@ -65,7 +65,7 @@ namespace Supermarket.ShoppingCart.Tests
                 new CartItem
                 {
                     Product = applesProduct,
-                    Quantity = 2.5
+                    Quantity = 2500
                 }
             }; 
             shoppingCart.CartItems = cartItems;
@@ -94,7 +94,7 @@ namespace Supermarket.ShoppingCart.Tests
                 new CartItem
                 {
                     Product = applesProduct,
-                    Quantity = 2.5
+                    Quantity = 2500
                 }
             };
             shoppingCart.CartItems = cartItems;

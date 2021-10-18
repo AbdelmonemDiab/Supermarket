@@ -32,7 +32,7 @@ namespace Supermarket.ShoppingCart.Interfaces
         /// </summary>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        bool IsEligibleForDiscount(double quantity);
+        bool IsEligibleForDiscount(int quantity);
 
         /// <summary>
         /// 
@@ -40,7 +40,7 @@ namespace Supermarket.ShoppingCart.Interfaces
         /// <param name="quantity"></param>
         /// <param name="product"></param>
         /// <returns></returns>
-        double CalculateDiscount(double quantity, Product product);
+        double CalculateDiscount(int quantity, Product product);
 
         
 

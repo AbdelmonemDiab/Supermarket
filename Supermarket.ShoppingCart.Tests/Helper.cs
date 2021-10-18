@@ -15,27 +15,33 @@ namespace Supermarket.ShoppingCart.Tests
             {
                 new()
                 {
-                    ProductId = 1, 
+                    ProductId = 1,
+                    PricePerUnit = PricePerUnit.One,
                     ProductName = "rice",
                     ProductPrice= 2.49,
                     ProductType = ProductType.Quantity,
                     ProductUnit = "Bag"
+                    
                 },
                 new()
                 {
                     ProductId = 2,
+                    PricePerUnit = PricePerUnit.One,
+
                     ProductName = "toothbrush",
                     ProductPrice = 0.99,
                     ProductType = ProductType.Quantity,
                     ProductUnit = "Quantity"
+                   
                 },
                 new()
                 {
                     ProductId = 3,
                     ProductName = "apples",
+                    PricePerUnit = PricePerUnit.Thousand,
                     ProductPrice = 1.99,
                     ProductType = ProductType.Weight,
-                    ProductUnit = "Kilo"
+                    ProductUnit = "Kilo",
                 },
                 new()
                 {
@@ -43,23 +49,28 @@ namespace Supermarket.ShoppingCart.Tests
                     ProductName = "toothpaste",
                     ProductPrice = 1.79,
                     ProductType = ProductType.Quantity,
-                    ProductUnit = "Quantity"
+                    ProductUnit = "Quantity",
+                    PricePerUnit = PricePerUnit.One
                 },
                 new()
                 {
                     ProductId = 5,
                     ProductName = "cherry tomatoes",
+                    PricePerUnit = PricePerUnit.One,
                     ProductPrice = 0.69,
                     ProductType = ProductType.Quantity,
-                    ProductUnit = "Box"
+                    ProductUnit = "Box",
+                 
                 },
                 new()
                 {
                     ProductId = 6,
                     ProductName = "milk",
+                    PricePerUnit = PricePerUnit.One,
                     ProductPrice = 1.0,
                     ProductType = ProductType.Quantity,
-                    ProductUnit = "Bottle"
+                    ProductUnit = "Bottle",
+                   
                 },
             };
         }

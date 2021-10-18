@@ -14,12 +14,12 @@ namespace Supermarket.ShoppingCart.Model
         public DateTime StartDate { get; set ; }
         public DateTime? EndDate { get ; set ; }
 
-        public double CalculateDiscount(double quantity, Product product)
+        public double CalculateDiscount(int quantity, Product product)
         {
             return Percentage * quantity*product.ProductPrice;
         }
 
-        public bool IsEligibleForDiscount(double quantity)
+        public bool IsEligibleForDiscount(int quantity)
         {
             return MinmumQuantity <= quantity;
         }

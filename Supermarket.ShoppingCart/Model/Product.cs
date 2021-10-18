@@ -12,23 +12,26 @@ namespace Supermarket.ShoppingCart.Model
         private double _ProductPrice;
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public ProductType ProductType { get; set; }
+        public PricePerUnit PricePerUnit { get; set; }
         public double ProductPrice
         {
-            get 
+            get
             {
-                return _ProductPrice;
+                return _ProductPrice / (int)PricePerUnit;
             }
             set 
             {
-                if (value < 0)
+                if (value <= 0)
                     throw new Exception("Product Price should be greater than 0");
                 _ProductPrice = value;
             }
         }
 
+
         public string ProductUnit { get; set; }
         public List<IDiscount> Discounts { get; set; }
-        public ProductType ProductType { get; set; }
+
         public Product()
         {
             Discounts = new List<IDiscount>();
